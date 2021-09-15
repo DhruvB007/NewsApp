@@ -1,0 +1,3 @@
+rootProject.name = "InShortsClone"
+include ':app'
+include ':api'
