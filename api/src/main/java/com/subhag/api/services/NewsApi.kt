@@ -1,5 +1,6 @@
 package com.subhag.api.services
 
+import com.subhag.api.models.responses.ArticlesResponse
 import com.subhag.api.models.responses.TopHeadlinesFromAllSources
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
@@ -17,6 +18,11 @@ interface NewsApi {
         @Query("pagesize") pageSize: Int? = null,
         @Query("page") page: Int? = null
     ): Single<TopHeadlinesFromAllSources>
+
+    @GET("/v2/everything")
+    fun getAllArticles(
+        @Query("q") query: String
+    ): Single<ArticlesResponse>
 
     companion object {
 
