@@ -1,6 +1,9 @@
 package com.subhag.api
 
-import org.junit.Assert.*
+import com.subhag.api.services.newsapp.NewsApiClient
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
 class NewsApiTest {
@@ -9,22 +12,20 @@ class NewsApiTest {
 
     @Test
     fun `Test GET top headlines from News API`() {
-        val articlesResponse = newsApi
-            .getTopHeadlinesFromAllSources()
-            .blockingGet()
-
-        assertEquals(articlesResponse.status, STATUS_OK)
-        assertNotEquals(0, articlesResponse.articles.size)
+        runBlocking {
+            val articlesResponse = newsApi.getTopHeadlinesFromAllSources()
+            assertEquals(articlesResponse.isSuccessful, true)
+            assertNotEquals(0, articlesResponse.body()?.articles?.size)
+        }
     }
 
     @Test
     fun `Test GET search results given a query`() {
-        val articlesResponse = newsApi
-            .getAllArticles("Elon Musk")
-            .blockingGet()
-
-        assertEquals(articlesResponse.status, STATUS_OK)
-        assertNotEquals(0, articlesResponse.articles.size)
+        runBlocking {
+            val articlesResponse = newsApi.getAllArticles("Elon musk")
+            assertEquals(articlesResponse.isSuccessful, true)
+            assertNotEquals(0, articlesResponse.body()?.articles?.size)
+        }
     }
 
     companion object {

@@ -1,10 +1,8 @@
-package com.subhag.api
+package com.subhag.api.services.newsapp
 
-import com.subhag.api.services.NewsApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -29,12 +27,11 @@ class NewsApiClient {
         .Builder()
         .client(okHttpClient)
         .baseUrl(NewsApi.BASE_URL)
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
 
 
-    val newsApi = retrofit.create(NewsApi::class.java)
+    val newsApi: NewsApi = retrofit.create(NewsApi::class.java)
 
     companion object {
 
